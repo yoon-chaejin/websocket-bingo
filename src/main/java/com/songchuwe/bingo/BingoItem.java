@@ -1,12 +1,12 @@
 package com.songchuwe.bingo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
-
+import lombok.NoArgsConstructor;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BingoItem {
-    @NonNull
     private String empNo;
-    @NonNull
     private String name;
 }

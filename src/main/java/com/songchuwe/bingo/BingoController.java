@@ -20,16 +20,19 @@ public class BingoController {
 
     @MessageMapping("/ready")
     public void setReady() throws Exception {
+        System.out.println("Message Received : Ready");
     }
 
     @MessageMapping("/select-item")
     @SendTo("/topic/bingo")
     public BingoItem selectItem(BingoItem item) throws Exception {
+        System.out.println("Message Received : "+ item.toString());
         return item;
     }
 
     @MessageMapping("/shout-bingo")
     public void shoutBingo() throws Exception {
+        System.out.println("Message Received : Bingo");
     }
 
     @GetMapping("/item-choices")
