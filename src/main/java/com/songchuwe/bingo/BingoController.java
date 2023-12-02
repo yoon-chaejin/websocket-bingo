@@ -17,22 +17,34 @@ public class BingoController {
             new BingoItem("00002", "이길동"),
             new BingoItem("00003", "박길동"),
     };
+    private Integer readyCount = 0;
 
-    @MessageMapping("/ready")
-    public void setReady() throws Exception {
-        System.out.println("Message Received : Ready");
+    @MessageMapping("/set-ready")
+    @SendTo("/topic/set-ready")
+    public boolean setReady(String name) throws Exception {
+        System.out.println("Message Received : Ready" + name);
+        readyCount++;
+        System.out.println("Ready Count After Increment " + readyCount);
+        if (readyCount >= 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @MessageMapping("/select-item")
-    @SendTo("/topic/bingo")
+    @SendTo("/topic/select-item")
     public BingoItem selectItem(BingoItem item) throws Exception {
         System.out.println("Message Received : "+ item.toString());
         return item;
     }
 
     @MessageMapping("/shout-bingo")
-    public void shoutBingo() throws Exception {
-        System.out.println("Message Received : Bingo");
+    @SendTo("/topic/shout-bingo")
+    public String shoutBingo(String name) throws Exception {
+        System.out.println("Message Received : Bingo" + name);
+        return name;
     }
 
     @GetMapping("/item-choices")
