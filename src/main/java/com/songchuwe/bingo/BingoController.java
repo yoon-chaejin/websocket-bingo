@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BingoController {
+
+    private List<Player> players = new ArrayList<>();
 
     private final BingoItem[] choices = {
             new BingoItem("00000", "홍길동"),
@@ -17,26 +21,30 @@ public class BingoController {
             new BingoItem("00002", "이길동"),
             new BingoItem("00003", "박길동"),
     };
-    private Integer readyCount = 0;
+
+    @MessageMapping("/register-player")
+    public void registerPlayer(PlayerRegisterRequest request) throws Exception {
+        System.out.println("Message Received : Register Player" + request.toString());
+        players.add(Player.of(request));
+    }
 
     @MessageMapping("/set-ready")
     @SendTo("/topic/set-ready")
-    public boolean setReady(String name) throws Exception {
-        System.out.println("Message Received : Ready" + name);
-        readyCount++;
-        System.out.println("Ready Count After Increment " + readyCount);
-        if (readyCount >= 2) {
-            return true;
-        }
-        else {
-            return false;
-        }
+    public boolean setReady(SetReadyRequest request) throws Exception {
+        System.out.println("Message Received : Ready " + request.toString());
+
+        Player player = players.stream().filter(item -> item.getEmpNo().equals(request.getEmpNo())
+                && item.getName().equals(request.getName()) && item.isReady() == false).findFirst().orElse(new Player());
+
+        player.setReady(true);
+
+        return players.stream().filter(item -> item.isReady() == false).collect(Collectors.toList()).size() == 0;
     }
 
     @MessageMapping("/select-item")
     @SendTo("/topic/select-item")
     public BingoItem selectItem(BingoItem item) throws Exception {
-        System.out.println("Message Received : "+ item.toString());
+        System.out.println("Message Received : " + item.toString());
         return item;
     }
 
