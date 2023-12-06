@@ -1,4 +1,4 @@
-package com.songchuwe.bingo;
+package com.songchuwe.bingo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

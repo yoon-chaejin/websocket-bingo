@@ -1,8 +1,13 @@
-package com.songchuwe.bingo;
+package com.songchuwe.bingo.controller;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+
+import com.songchuwe.bingo.model.BingoItem;
+import com.songchuwe.bingo.model.Player;
+import com.songchuwe.bingo.model.PlayerRegisterRequest;
+import com.songchuwe.bingo.model.SetReadyRequest;
 
 import java.util.ArrayList;
 import java.util.List;

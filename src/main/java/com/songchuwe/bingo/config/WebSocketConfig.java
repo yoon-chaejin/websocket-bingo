@@ -1,4 +1,4 @@
-package com.songchuwe.bingo;
+package com.songchuwe.bingo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

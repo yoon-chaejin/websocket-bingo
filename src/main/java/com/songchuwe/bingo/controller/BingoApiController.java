@@ -1,4 +1,4 @@
-package com.songchuwe.bingo;
+package com.songchuwe.bingo.controller;
 
 import java.util.List;
 
@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.songchuwe.bingo.model.BingoItem;
+import com.songchuwe.bingo.service.BingoService;
 
 @RestController
 public class BingoApiController {
