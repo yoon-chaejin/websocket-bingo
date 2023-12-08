@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.songchuwe.bingo.model.Player;
 import com.songchuwe.bingo.model.PlayerRegisterRequest;
+import com.songchuwe.bingo.model.PlayerUnregisterRequest;
 import com.songchuwe.bingo.model.SetReadyRequest;
 
 @Service
@@ -19,9 +20,15 @@ public class PlayerService {
         players.add(Player.of(request));
     }
 
+    public void unregisterPlayer(PlayerUnregisterRequest request) {
+        players.removeIf(item -> item.getEmpNo().equals(request.getEmpNo())
+                && item.getName().equals(request.getName()));
+    }
+
     public Player findPlayer(SetReadyRequest request) {
         return players.stream().filter(item -> item.getEmpNo().equals(request.getEmpNo())
-                && item.getName().equals(request.getName()) && item.isReady() == false).findFirst().orElse(new Player());
+                && item.getName().equals(request.getName()) && item.isReady() == false).findFirst()
+                .orElse(new Player());
     }
 
     public List<Player> getPlayers() {
