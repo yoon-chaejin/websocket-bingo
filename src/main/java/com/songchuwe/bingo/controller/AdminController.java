@@ -11,4 +11,9 @@ public class AdminController {
     public String home() {
         return "admin-main.html";
     }
+
+    @GetMapping("/status-board")
+    public String statusBoard() {
+        return "status-board.html";
+    }
 }

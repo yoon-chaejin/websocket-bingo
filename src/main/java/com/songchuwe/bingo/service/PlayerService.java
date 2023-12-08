@@ -24,6 +24,10 @@ public class PlayerService {
                 && item.getName().equals(request.getName()) && item.isReady() == false).findFirst().orElse(new Player());
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public boolean isAllPlayersReady() {
         return players.stream().filter(item -> item.isReady() == false).collect(Collectors.toList()).size() == 0;
     }
